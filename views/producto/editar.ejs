@@ -1,0 +1,29 @@
+    <title>Editar Producto</title>
+<body>
+    <h1>Editar Producto</h1>
+    <form action="/producto/editar/<%= producto.id %>" method="POST">
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" value="<%= producto.nombre %>" required>
+        </div>
+        <div>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" required><%= producto.descripcion %></textarea>
+        </div>
+        <div>
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" name="precio" value="<%= producto.precio %>" required>
+        </div>
+        <div>
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria" required>
+            <% categorias.forEach(function(categoria) { %>
+                <option value="<%= categoria.id %>" <%= categoria.id === producto.categoria ? 'selected' : '' %>><%= categoria.nombre %></option>
+            <% }); %>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Guardar Cambios</button>
+        </div>
+    </form>
+</body>

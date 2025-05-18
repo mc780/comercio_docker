@@ -1,0 +1,25 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: contenedor-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=abc1234
+
+  app:
+    build: .
+    container_name: node-app
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://admin:abc1234@contenedor-mongo:27017/pfo2_db?authSource=admin
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
